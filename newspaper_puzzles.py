@@ -11,4 +11,13 @@ def word_scramble(words_input):
         words_scrambled.append(temp)
     return words_scrambled
 print word_scramble(["maybe","this","works"])
-def
+def word_search(words_input):
+    temp_number = 0
+    temp_string = ''
+    directions = ["up","upright","right","downright","down","downleft","left","upleft"]
+    for i in words_input:
+        temp_number += len(i)
+    size = temp_number / len(words_input
+    temp_number = 0
+
+print word_search(["maybe","this","works"])
