@@ -1,5 +1,6 @@
 import random
 import math
+import string
 def word_scramble(words_input):
     words_scrambled = []
     temp = ''
