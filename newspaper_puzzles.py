@@ -57,7 +57,7 @@ def word_search(words_input):
                         grid[startx][starty] = word[i]
                         starty-=1
                     safe = False
-            if word_direction == "upright":
+            if word_direction == "downleft":
                 startx = random.randint(0,size-len(word)-1)
                 starty = random.randint(len(word)-1,size-1)
                 tempx  = startx
