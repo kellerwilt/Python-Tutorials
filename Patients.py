@@ -1,7 +1,7 @@
 patient = open("Patients.txt")
 import datetime
 date = datetime.date.today()
-print date
+print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][date.weekday()] + ", " + ["January","Fabruary","March","April","May","June","July","August","September","October","November","December"][date.month] + ' ' + str(date.day) + ', ' + str(date.year)
 class Patients:
     def __init__(self, name, height, weight, age, last_appointment,date):
         self.name = name
@@ -16,23 +16,31 @@ class Patients:
             if self.until_next_appointment.days < 5:
                 if self.until_next_appointment.days < 2:
                     if self.until_next_appointment.days < 1:
-                        print 'Reminder: ' + name + "'s appointment is today!"
+                        print 'Reminder: ' + self.name + "'s appointment is today!"
                     else:
-                        print "Reminder: " + name + "'s appointment is tomorrow!"
+                        print "Reminder: " + self.name + "'s appointment is tomorrow!"
                 else:
-                    print "Reminder: " + name + "'s appointment is in " + str(self.until_next_appointment.days) + " days!"
+                    print "Reminder: " + self.name + "'s appointment is in " + str(self.until_next_appointment.days) + " days!"
             else:
-                print "Reminder: " + name + "'s appointment is in " + str(self.until_next_appointment.days) + " days!"
+                print "Reminder: " + self.name + "'s appointment is in " + str(self.until_next_appointment.days) + " days!"
+    def info(self):
+        print "Name: "+str(self.name)
+        print "Height: "+str(self.height)
+        print "Weight: "+str(self.weight)
+        print "Age: "+str(self.age)
+        print "Last appointment: "+str(self.last_appointment)
+        if self.until_next_appointment.days < 31:
+            print "Upcoming appointment: "+str(self.next_appointment) + " in " + str(self.until_next_appointment.days) + " days."
+        else:
+            print "Upcoming appointment: "+str(self.next_appointment)
 unread_lines = True
 while(unread_lines):
     line = patient.readline().upper()
     if line == '':
         unread_lines = False
         break
-    print line
     line=line.translate(None, ',')
     line=line.split()
-    print line
     name = line[0]
     height = line[1]
     weight = line[2]
@@ -42,18 +50,19 @@ while(unread_lines):
         george = Patients(name,height,weight,age,last_appointment,date)
     if line[0] == 'JACKSON':
         jackson = Patients(name,height,weight,age,last_appointment,date)
-print george.name
-print george.height
-print george.weight
-print george.age
-print george.last_appointment
-print george.next_appointment
-print george.until_next_appointment.days
+    if line[0] == 'JIM':
+        jim = Patients(name,height,weight,age,last_appointment,date)
+    if line[0] == 'CHUCK':
+        chuck = Patients(name,height,weight,age,last_appointment,date)
+    if line[0] == 'COREY':
+        corey = Patients(name,height,weight,age,last_appointment,date)
+george.info()
 george.remind_patients()
-#print jackson.name
-#print jackson.height
-#print jackson.weight
-#print jackson.age
-#print jackson.last_appointment
-#print jackson.next_appointment
-#print jackson.until_next_appointment.days
+jackson.info()
+jackson.remind_patients()
+jim.info()
+jim.remind_patients()
+chuck.info()
+chuck.remind_patients()
+corey.info
+corey.remind_patients()
