@@ -35,7 +35,6 @@ class PatientsImporter:
             else:
                 lines.append(self.name.title() + ", " + self.height + ", " + self.weight + ", " + self.age + ", " + str(self.last_appointment[0]) + ", " + str(self.last_appointment[1]) + ", " + str(self.last_appointment[2]) + "\n")
                 self.patients.append(Patient(self.name,self.height,self.weight,self.age,self.last_appointment,self.next_appointment,self.until_next_appointment))
-        print lines
         file.close()
         file = open("Patients.txt","w")
         file.writelines(lines)
