@@ -22,7 +22,7 @@ class PatientsImporter:
             self.last_appointment = [int(line[4]),int(line[5]),int(line[6])]
             self.next_appointment = datetime.date(self.last_appointment[0]+(self.last_appointment[1]+5)/12,(self.last_appointment[1]+5)%12,self.last_appointment[2])
             self.until_next_appointment = self.next_appointment - date
-            if self.until_next_appointment.days == 0:
+            if self.until_next_appointment.days <= 0:
                 print self.name + "'s appointment was today. Please enter the new data from todays appointment."
                 self.height = raw_input("What is " + self.name + "'s height now?")
                 self.weight = raw_input("What is " + self.name + "'s weight now?")
