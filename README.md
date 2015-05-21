@@ -7,4 +7,4 @@ The PatientsImporter class reads through each line, and puts the data in a more 
 
 The Patients class displays everything to the user. If the next appointment is in less than a month, it displays the number of days until the next appointment. The Patients class also sends out texts to remind patients of upcoming appointments (code for texts are currently commented so I don't text someone every time I test the program). It sends texts 10 days before, on the day before, and on the day of the appointment.
 
-I am currently working on adding comments that explain each step of the program, to make it easier to look at.
+Patients.py has comments after every significant part of the program, that help explain how things work.
