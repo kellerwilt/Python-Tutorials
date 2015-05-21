@@ -1,4 +1,3 @@
-patient = open("Patients.txt")
 import datetime
 from twilio.rest import TwilioRestClient
 date = datetime.date.today()
@@ -8,6 +7,7 @@ class PatientsImporter:
         self.patients = []
         file = open(file)
         unread_lines = True
+        lines = list()
         while unread_lines:
             line = str(file.readline()).upper()
             line = line.split(',')
@@ -22,7 +22,23 @@ class PatientsImporter:
             self.last_appointment = [int(line[4]),int(line[5]),int(line[6])]
             self.next_appointment = datetime.date(self.last_appointment[0]+(self.last_appointment[1]+5)/12,(self.last_appointment[1]+5)%12,self.last_appointment[2])
             self.until_next_appointment = self.next_appointment - date
-            self.patients.append(Patient(self.name,self.height,self.weight,self.age,self.last_appointment,self.next_appointment,self.until_next_appointment))
+            if self.until_next_appointment.days == 0:
+                print self.name + "'s appointment was today. Please enter the new data from todays appointment."
+                self.height = raw_input("What is " + self.name + "'s height now?")
+                self.weight = raw_input("What is " + self.name + "'s weight now?")
+                self.age = raw_input("What is " + self.name + "'s age now?")
+                lines.append(self.name.title() + ", " + self.height + ", " + self.weight + ", " + self.age + ", " + str(self.next_appointment.year) + ", " + str(self.next_appointment.month) + ", " + str(self.next_appointment.day) + "\n")
+                self.last_appointment = [self.next_appointment.year, self.next_appointment.month, self.next_appointment.day]
+                self.next_appointment = datetime.date(self.last_appointment[0]+(self.last_appointment[1]+5)/12,(self.last_appointment[1]+5)%12,self.last_appointment[2])
+                self.until_next_appointment = self.next_appointment - date
+                self.patients.append(Patient(self.name,self.height,self.weight,self.age,self.last_appointment,self.next_appointment,self.until_next_appointment))
+            else:
+                lines.append(self.name.title() + ", " + self.height + ", " + self.weight + ", " + self.age + ", " + str(self.last_appointment[0]) + ", " + str(self.last_appointment[1]) + ", " + str(self.last_appointment[2]) + "\n")
+                self.patients.append(Patient(self.name,self.height,self.weight,self.age,self.last_appointment,self.next_appointment,self.until_next_appointment))
+        print lines
+        file.close()
+        file = open("Patients.txt","w")
+        file.writelines(lines)
 class Patient:
     def __init__(self, name, height, weight, age, last_appointment, next_appointment, until_next_appointment):  
         self.name = name
@@ -39,10 +55,10 @@ class Patient:
         if self.until_next_appointment.days < 10:
             if self.until_next_appointment.days < 2:
                 if self.until_next_appointment.days < 1:
-                    message = client.messages.create(to="+1testtesttestdontwantsendtext",from_="+14253183498",body="Reminder: " + self.name + ", your appointment is today!")
+                    #message = client.messages.create(to="NaN",from_="+14253183498",body="Reminder: " + self.name + ", your appointment is today!")
                     return 'Reminder: ' + self.name + "'s appointment is today!"
                 else:
-                    message = client.messages.create(to="+1testtesttestdontwantsendtext",from_="+14253183498",body="Reminder: " + self.name + ", your appointment is tomorrow!")
+                    message = client.messages.create(to = "+1testtesttestdontwantsendtext",from_ = "+14253183498",body = "Reminder: " + self.name + ", your appointment is tomorrow!")
                     return "Reminder: " + self.name + "'s appointment is tomorrow!"
             else:
                 message = client.messages.create(to="+1testtesttestdontwantsendtext",from_="+14253183498",body="Reminder: " + self.name + ", your appointment is in " + str(self.until_next_appointment) + " days!")
