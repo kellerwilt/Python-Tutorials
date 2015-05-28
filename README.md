@@ -1,7 +1,9 @@
 # Pythons
 These are some file IO and OO examples. 
 
+
 Patients.py contains an importer class that interacts with Patients.txt and reads the data for each patient. Lets start with the file we're reading the data from. `Patients.txt` has one line for every patient, containing several pieces of data for that patient, separated by commas, in the following format.
+
 
 | Patient Name | Height  | Weight  | age    | date of last appointment |
 | :----------: | :-----: | :-----: | :----: | :----------------------: |
@@ -9,15 +11,15 @@ Patients.py contains an importer class that interacts with Patients.txt and read
 
 Lets start with displaying the date, before we analyze and display all of our data.
 We will need the `datetime` module to find todays date, and do any calculations involving time.
-`datetime.now()` is a function of the `datetime` module, that returns the current date;  
+`datetime.today()` is a function of the `datetime` module, that returns the current date;  
 
-`from datetime import datetime`
+`>>> from datetime import datetime`
 
-`today = datetime.datetime.now()`
+`>>> today = datetime.datetime.today()`
 
-`   today`
+`>>> today`
 
-`=> datetime.datetime(2015, 5, 26, 8, 58, 29, 899000)`
+`datetime.datetime(2015, 5, 26, 8, 58, 29, 899000)`
 
 You can see, that it doesn't return `2015, 5, 26, 8, 55, 59, 205000`, or `May 26th, 2015`, and if you check the type, it's actually in datetime's own format. I wanted the program to display the date in a sentence, so in order to make it look nice, I can use the attributes of the variable we have assigned to the current date. `today.day` returns `26`, `today.month` returns `5`, `today.year` returns `2015` and `today.weekday` returns `1`. For the week and month, we can use a list of all the months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday` we can put together a string that displays the date the way a human would by doing something like this
 `print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][today.weekday()] + ", " + ["January","Fabruary","March","April","May","June","July","August","September","October","November","December"][date.month] + ' ' + str(today.day) + ', ' + str(today.year)` which returns `Today is Tuesday, June 26, 2015` 
@@ -32,9 +34,16 @@ Now let's go over how all this works.
 
 Before anything else, we need to open `Patients.txt`. The syntax for this is `open(file, mode, buffering)`. The `file` argument is a string containing the file's address. The next argument, `mode`, determines what you are able to do with the file (read, write, etc.). By default it opens in read, which is all we need for now, so we can just make a variable, file, and set `file = open("Patients.txt")`.
 
-To start reading the file, we will want to get each line into a string. We can do this using the `readline()` attribute on `file`. `.readline()` returns a line of the file in the form of a string. Every time you call this function, it moves to the next line, meaning `file.readline()` would return the first line of `file`, but calling it a second time would return the second line.
+To start reading the file, we will want to get each line into a string. We can do this using the `readline()` attribute on `file`. `.readline()` returns a line of the file in the form of a string. Every time you call this function, it moves to the next line, meaning `file.readline()` would return the first line of `file`, but calling it a second time would return the second line. So, we can just make a while loop and set `line = file.readline()` at the beginning of the the loop, to iterate through it line by line.
 
-Now that we have the data for the first patient, we can start picking it apart and taking what we need. Most of this can be done for us using the `split()` function. Calling `split()` on a string, will turn it into a list containing all the different pieces sepparated by a given string (space by default), so `"thing1 thing2 thing3".split()` would return `["thing1", "thing2", "thing3"]`.
+Now that we have the data for the first patient, we can start picking it apart and taking what we need. Most of this can be done for us using the `split()` function. Calling `split()` on a string, will turn it into a list containing all the different pieces separated by a given string (space by default), so `"thing1 thing2 thing3".split()` would return `["thing1", "thing2", "thing3"]`. All we have to do is call `line.split(',')`, and then set different variables to their corresponding elements in the list we get.
 
-Lets start with the file we're reading. `Patients.txt` contains a set of patients, and data referring to those patients, in the format `name, height, weight, age, year, month, day (of last appointment)`
+We can make our own datetime object in the format mentioned before, by setting a varible to `datetime.date(year, month, day)`. So to make the variable `last_appointment`, we declare it equal to `calling datetime.date()` on the appropriate elements of the list we made earlier with `line.split()`. Now We need to find when the next appointment should be, and how many days are left until then. 
 
+To find the date of the next appointment,  we need is to add 5 months to the date of the last appointment. Using the `.replace()` function from datetime, we can replace different values, without going through the whole process of making a datetime object again. We can use modulo to keep the month between 1 and 12. Python rounding down when working with integers can help us by changing the year when necessary. When we add `(last_appointment.month + 5) / 12` to the year, if the month plus 5 is less than 12, then deviding it by 12 will be less than one, and will be rounded down to 0, but if the result is more than 12, we end up changing the year by one.
+
+`next_appointment = last_appointment.replace(month = last_appointment.month + 5 % 12, year = last_appointment.year + (last_appointment.month + 5) / 12)`
+
+Now all that's left is to find how many days are left until the next appointment. Using the default python library, this would be very difficult. We would have to setup something that tracks the number of days in each month, tracks which months would go by from appointment to appointment. Datetime however, can add and subtract dates quite easily, so simply by finding the current date, subtracted from the next appointment, and the attribute `.days` will give us what we need; 
+
+`until_next_appointment = (next_appointment - today).days`
