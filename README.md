@@ -5,10 +5,14 @@ These are some file IO and OO examples.
 Patients.py contains an importer class that interacts with Patients.txt to retrieve the data for each patient. Lets start with the file we're reading the data from. `Patients.txt` has one line for every patient, containing several pieces of data for that patient, separated by commas, in the following format.
 
 
-| Patient Name | Height  | Weight  | age    | Date of Last Appointment |
-| (first name) | (inches) | (pounds) | (years) | (yyyy,mm,dd) |
-| :----------: | :------: | :------: | :-----: | :----------: |
-| George,  | 72, | 187, | 38, | 2015, 05, 28 |
+Patient Name | Height | Weight | age | Date of Last Appointment
+:-: | :-: | :-: | :-: | :-:
+_(first name)_ | _(inches)_ | _(pounds)_ | _(years)_ | _(yyyy,mm,dd)_
+George,  | 72, | 187, | 38, | 2015, 05, 28
+Jackson, | 73, | 210, | 35, | 2015, 03, 18
+Jim, | 72, | 190, | 34, | 2015, 01, 30
+Chuck, | 69, | 180, | 29, | 2015, 02, 24
+Corey, | 68, | 230, | 31, | 2014, 04, 03
 
 Lets start with displaying the date, before we analyze and display all of our data.
 We will need the `datetime` module to find todays date, and do any calculations involving time.
