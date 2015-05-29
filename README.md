@@ -56,7 +56,8 @@ We can make our own datetime object in the format mentioned before, by setting a
 To find the date of the next appointment, we need is to add 5 months to the date of the last appointment. Using the `.replace()` function from datetime, we can replace different values, without going through the whole process of making a datetime object again. We can use modulo to keep the month between 1 and 12. Python rounding down when working with integers can help us by changing the year when necessary. When we add `(last_appointment.month + 5) / 12` to the year, if the month plus 5 is less than 12, then deviding it by 12 will be less than one, and will be rounded down to 0, but if the result is more than 12, we end up changing the year by one.
 
 ```Python
-next_appointment = last_appointment.replace(month = last_appointment.month + 5 % 12, year = last_appointment.year + (last_appointment.month + 5) / 12)
+next_appointment = last_appointment.replace(month = last_appointment.month + 5 % 12, year = 
+last_appointment.year + (last_appointment.month + 5) / 12)
 ```
 
 Now all that's left is to find how many days are left until the next appointment. Using the default python library, this would be very difficult. We would have to setup something that tracks the number of days in each month, tracks which months would go by from appointment to appointment. Datetime however, can add and subtract dates quite easily, so simply by finding the current date, subtracted from the next appointment, and the attribute `.days` will give us what we need; 
@@ -80,7 +81,8 @@ class Patient:
 ```
 Then, back in the `PatientsImporter` class, we add an instance of `Patient` to our `patients` list:
 ```Python
-patients.append(Patient(self.name, self.height, self.weight, self.age, self.last_appointment, self.next_appointment, self.until_next_appointment))
+patients.append(Patient(self.name, self.height, self.weight, self.age, self.last_appointment, 
+self.next_appointment, self.until_next_appointment))
 ```
 Finally, we go through the list and print the data, and give any necessary reminders using a for loop
 ```Python
