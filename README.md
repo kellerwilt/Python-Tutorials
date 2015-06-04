@@ -30,9 +30,10 @@ datetime.datetime(2015, 5, 26, 8, 58, 29, 899000)
 You can see, that it doesn't return `2015, 5, 26, 8, 55, 59, 205000`, or `May 26th, 2015`, and if you check the type, it's actually in datetime's own format. I wanted the program to display the date in a sentence, so in order to make it look nice, I can use the attributes of the variable we have assigned to the current date. `today.day` returns `26`, 
 returns `5`, `today.year` returns `2015` and `today.weekday` returns `1`. For the week and month, we can use a list of all the months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday` we can put together a string that displays the date the way a human would by doing something like this
 ```Python
-print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][today.
-weekday()] + ", " + ["January","Fabruary","March","April","May","June","July","August","September",
-"October","November","December"][date.month] + ' ' + str(today.day) + ', ' + str(today.year)
+print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",
+"Sunday"][today.weekday()] + ", " + ["January","Fabruary","March","April","May",
+"June","July","August","September","October","November","December"][date.month] + 
+' ' + str(today.day) + ', ' + str(today.year)
 ```
 
 which returns `Today is Tuesday, June 26, 2015 `
