@@ -49,21 +49,19 @@ I wanted the program to display the date in a sentence, so in order to make it l
 5
 ```
 
-As you can see `today.weekday()` doesn't return `'Tuesday'` and `today.month` doesn't return `'May'` months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday`.
+As you can see `today.weekday()` doesn't return `'Tuesday'` and `today.month` doesn't return `'May'` months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday` (we subtract one because start counting at 0).
 ```Python
 >>> weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
->>> weekdays[today.weekday()]
+>>> weekdays[today.weekday() - 1]
 "Tuesday"
 
 >>> months = ["January", "Fabruary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
->>> months[today.month]
+>>> months[today.month - 1]
 "May"
 ```
 we can put together a string that displays the date the way a human would by doing something like this
 ```Python
-print "Today is " + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-"Sunday"][today.weekday()] + ", " + ["January", "Fabruary", "March", "April", "May",
-"June", "July", "August", "September", "October", "November", "December"][today.month] + 
+print "Today is " + weekdays[today.weekday() - 1] + ", " + months[today.month - 1] + 
 ' ' + str(today.day) + ', ' + str(today.year)
 ```
 
