@@ -117,10 +117,10 @@ self.last_appointment, self.next_appointment, self.until_next_appointment))
 If you tried printing an instance of Patient, you would realize it doesn't exactly give you anything helpful. By default it should return something along the lines of `<__main__.Patient instance at 0x7fe5405dc050>`. To fix this, we can tell the computer what we want it to do when we call `print` on an instance of our class by defining '__str__()'
 ```
 def __str__(self): 
-        info = "Name: "+str(self.name).title() + '\n'
-        info += "Height: "+str(self.height) + '\n'
-        info += "Weight: "+str(self.weight) + '\n'
-        info += "Age: "+str(self.age) + '\n'
+        info = "Name: " + str(self.name).title() + '\n'
+        info += "Height: " + str(self.height) + '\n'
+        info += "Weight: " + str(self.weight) + '\n'
+        info += "Age: " + str(self.age) + '\n'
         info += "Last appointment: " + str(self.last_appointment.year) + '-' + str(self.last_appointment.month) + '-' + str(self.last_appointment.day) + '\n'
         if self.until_next_appointment.days < 31: 
             info += "Upcoming appointment: " + str(self.next_appointment) + " in " + str(self.until_next_appointment.days) + " days."
@@ -384,9 +384,9 @@ ___
 If the appointment occurs in less than a month, displays the number of days until the appointment when displaying the appointments date
 ___
 ```Python
-            info += "Upcoming appointment: "+str(self.next_appointment) + " in " + str(self.until_next_appointment.days) + " days."
+            info += "Upcoming appointment: " + str(self.next_appointment) + " in " + str(self.until_next_appointment.days) + " days."
         else:
-            info += "Upcoming appointment: "+str(self.next_appointment) 
+            info += "Upcoming appointment: " + str(self.next_appointment) 
 ```
 if the appointment is more than a month away, prints the date normally
 ___
