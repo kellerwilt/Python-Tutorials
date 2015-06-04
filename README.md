@@ -2,7 +2,7 @@
 These are some file IO and OO examples. 
 
 
-Patients.py contains an importer class that interacts with Patients.txt to retrieve the data for each patient. Lets start with the file we're reading the data from. `Patients.txt` has one line for every patient, containing several pieces of data for that patient, separated by commas, in the following format.
+[Patients.py](https://github.com/kellerwilt/Python-Tutorials/blob/master/Patients.py) contains an importer class that interacts with [Patients.txt](https://github.com/kellerwilt/Python-Tutorials/blob/master/Patients.txt) to retrieve the data for each patient. Lets start with the file we're reading the data from. `Patients.txt` has one line for every patient, containing several pieces of data for that patient, separated by commas, in the following format.
 
 
 Patient Name | Height | Weight | age | Date of Last Appointment
@@ -27,12 +27,43 @@ We will need the `datetime` module to find todays date, and do any calculations 
 
 datetime.datetime(2015, 5, 26, 8, 58, 29, 899000)
 ```
-You can see, that it doesn't return `2015, 5, 26, 8, 55, 59, 205000`, or `May 26th, 2015`, and if you check the type, it's actually in datetime's own format. I wanted the program to display the date in a sentence, so in order to make it look nice, I can use the attributes of the variable we have assigned to the current date. `today.day` returns `26`, 
-returns `5`, `today.year` returns `2015` and `today.weekday` returns `1`. For the week and month, we can use a list of all the months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday` we can put together a string that displays the date the way a human would by doing something like this
+You can see, that it doesn't return `2015, 5, 26, 8, 55, 59, 205000`, or `May 26th, 2015`, and if you check the type, it's actually in datetime's own format. 
+
 ```Python
-print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",
-"Sunday"][today.weekday()] + ", " + ["January","Fabruary","March","April","May",
-"June","July","August","September","October","November","December"][date.month] + 
+>>> type(today)
+
+<type 'datetime.datetime'>
+```
+
+I wanted the program to display the date in a sentence, so in order to make it look nice, I can use the attributes of the variable we have assigned to the current date. 
+```Python
+>>> today.weekday()
+1
+>>> today.day
+26
+>>> today.year
+2015
+>>> today.weekday()
+1
+>>> today.month
+5
+```
+
+As you can see `today.weekday()` doesn't return `'Tuesday'` and `today.month` doesn't return `'May'` months/weekdays, and get an element from that list using the data from `today.month` or `today.weekday`.
+```Python
+>>> weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+>>> weekdays[today.weekday()]
+"Tuesday"
+
+>>> months = ["January", "Fabruary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+>>> months[today.month]
+"May"
+```
+we can put together a string that displays the date the way a human would by doing something like this
+```Python
+print "Today is " + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+"Sunday"][today.weekday()] + ", " + ["January", "Fabruary", "March", "April", "May",
+"June", "July", "August", "September", "October", "November", "December"][today.month] + 
 ' ' + str(today.day) + ', ' + str(today.year)
 ```
 
@@ -48,7 +79,7 @@ Now let's go over how all this works.
 
 Before anything else, we need to open `Patients.txt`. The syntax for this is `open(file, mode, buffering)`. The `file` argument is a string containing the file's address. The next argument, `mode`, determines what you are able to do with the file (read, write, etc.). By default it opens in read, which is all we need for now, so we can just make a variable, file, and set `file = open("Patients.txt")`.
 
-To start reading the file, we will want to get each line into a string. We can do this using the `readline()` attribute on `file`. `.readline()` returns a line of the file in the form of a string. Every time you call this function, it moves to the next line, meaning `file.readline()` would return the first line of `file`, but calling it a second time would return the second line. So, we can just make a while loop and set `line = file.readline()` at the beginning of the the loop, to iterate through it line by line.
+To start reading the file, we will want to get each line into a string. We can do this using the `readline()` attribute on `file`. `.readline()` returns a line of the file in the form of a string. Every time you call this function, it moves to the next line, meaning that calling `file.readline()` once, would return the first line of `file`, but calling it a second time would return the second line. So, we can just make a while loop and set `line = file.readline()` at the beginning of the the loop, to iterate through it line by line.
 
 Now that we have the data for the first patient, we can start picking it apart and taking what we need. Most of this can be done for us using the `split()` function. Calling `split()` on a string, will turn it into a list containing all the different pieces separated by a given string (space by default), so `"thing1 thing2 thing3".split()` would return `["thing1", "thing2", "thing3"]`. All we have to do is call `line.split(',')`, and then set different variables to their corresponding elements in the list we get.
 
