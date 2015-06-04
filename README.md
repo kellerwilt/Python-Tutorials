@@ -158,7 +158,8 @@ print "Today is " + ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturda
 "July","August","September","October","November","December"][date.month] + ' ' + 
 str(date.day) + ', ' + str(date.year) #Displays today's date in a more readable format
 class PatientsImporter: 
-    def __init__(self,file): #When we call this function later, 'file' will be Patients.txt
+    def __init__(self,file): #When we call this function later, 'file' will be 
+    Patients.txt
         self.patients = [] #Makes a list for us to add each patients data to
         file = open(file) #Opens Patients.txt
         unread_lines = True #Makes fail-safe for the upcoming while loop
@@ -167,57 +168,65 @@ class PatientsImporter:
         while unread_lines: #Rinse repeat
             line = str(file.readline()).upper() #Set the current line of Patients.txt 
             to a string
-            line = line.split(',') #Makes line a list, by using every section separated 
+            line = line.split(',') #Makes line a list, by using every section 
+            separated 
             by a comma as a new element in that list
             if len(line) == 1: #determines if the while loop is finished
                 unread_lines = False 
                 break #ends the loop
             line = map((lambda s: s.strip()), line) #removes trailing spaces from the 
             data from the current line
-            self.name = line[0]   #stores the data gathered under the following variables
+            self.name = line[0]   #stores the data gathered under the following 
+            variables
             self.height = line[1]
             self.weight = line[2]
             self.age = line[3]
-            self.last_appointment = [int(line[4]),int(line[5]),int(line[6])] #stores the 
-            date in the form of a list
-            self.next_appointment = datetime.date(self.last_appointment[0]+(self.last_appointment[1]+5)/12,
-            (self.last_appointment[1]+5)%12,self.last_appointment[2]) #calculates the date
-            of the next appointment and puts it in datetime format, so we can easily determine 
-            how many days are left before the next appointment
-            self.until_next_appointment = self.next_appointment - date #calculates time 
-            remaining before next appointment
-            if self.until_next_appointment.days <= 0: #determines if an unrecorded appointment
-            should have occured
-                print self.name + "'s appointment was today. Please enter the new data from 
-                todays appointment." #if so, stores the new data from that that days appointment 
-                in the following variables
+            self.last_appointment = [int(line[4]),int(line[5]),int(line[6])] #stores 
+            the date in the form of a list
+            self.next_appointment = datetime.date(self.last_appointment[0]+
+            (self.last_appointment[1]+5)/12,
+            (self.last_appointment[1]+5)%12,self.last_appointment[2]) #calculates the 
+            date of the next appointment and puts it in datetime format, so we can 
+            easily determine how many days are left before the next appointment
+            self.until_next_appointment = self.next_appointment - date #calculates 
+            time remaining before next appointment
+            if self.until_next_appointment.days <= 0: #determines if an unrecorded 
+            appointment should have occured
+                print self.name + "'s appointment was today. Please enter the new 
+                data from todays appointment." #if so, stores the new data from that 
+                that days appointment in the following variables
                 self.height = raw_input("What is " + self.name + "'s height now?")
                 self.weight = raw_input("What is " + self.name + "'s weight now?")
                 self.age = raw_input("What is " + self.name + "'s age now?")
-                lines.append(self.name.title() + ", " + self.height + ", " + self.weight + 
-                ", " + self.age + ", " + str(self.next_appointment.year) + ", " + 
-                str(self.next_appointment.month) + ", " + str(self.next_appointment.day) +
-                "\n") #adds the new data for Patients.txt to the lines list
-                self.last_appointment = [self.next_appointment.year, self.next_appointment.month, self.next_appointment.day] #resets appointment dates
+                lines.append(self.name.title() + ", " + self.height + ", " + 
+                self.weight + ", " + self.age + ", " + str(self.next_appointment.year) 
+                + ", " + str(self.next_appointment.month) + ", " + 
+                str(self.next_appointment.day) + "\n") #adds the new data for 
+                Patients.txt to the lines list self.last_appointment = 
+                [self.next_appointment.year, self.next_appointment.month, 
+                self.next_appointment.day] #resets appointment dates
                 self.next_appointment = datetime.date(self.last_appointment[0]+
                 (self.last_appointment[1]+5)/12,
                 (self.last_appointment[1]+5)%12,self.last_appointment[2]) 
                 self.until_next_appointment = self.next_appointment - date
-                self.patients.append(Patient(self.name,self.height,self.weight,self.age,
-                self.last_appointment,self.next_appointment,self.until_next_appointment))
-                #adds new data to a list we will later give to the Patient class
+                self.patients.append(Patient(self.name,self.height,self.weight,
+                self.age,self.last_appointment,self.next_appointment,
+                self.until_next_appointment))#adds new data to a list we will later 
+                give to the Patient class
             else: #determines if there is no new data to record
-                lines.append(self.name.title() + ", " + self.height + ", " + self.weight + 
-                ", " + self.age + ", " + str(self.last_appointment[0]) + ", " + 
-                str(self.last_appointment[1]) + ", " + str(self.last_appointment[2]) + "\n") #adds 
-                the current line in patients.txt to a list in case Patients.txt needs to be edited
+                lines.append(self.name.title() + ", " + self.height + ", " + 
+                self.weight + ", " + self.age + ", " + str(self.last_appointment[0]) + 
+                ", " + str(self.last_appointment[1]) + ", " + 
+                str(self.last_appointment[2]) + "\n") #adds the current line in 
+                patients.txt to a list in case Patients.txt needs to be edited
                 self.patients.append(Patient(self.name,self.height,self.weight,self.age,
-                self.last_appointment,self.next_appointment,self.until_next_appointment)) #adds 
-                data to the list we will give to patients.txt
+                self.last_appointment,self.next_appointment,
+                self.until_next_appointment)) #adds data to the list we will give to 
+                patients.txt
         file.close() #closes Patients.txt
-        file = open(file,"w") #resets whatever line of patients.txt the program was on so our 
-        edits don't change anything we don't want them to, and opens it in a way that lets it 
-        edit the file
+        file = open(file,"w") #resets whatever line of patients.txt the program was on 
+        so our edits don't change anything we don't want them to, and opens it in a way 
+        that lets us edit the file
         file.writelines(lines) #makes any necessary edits to patients.txt
 class Patient:
     def __init__(self, name, height, weight, age, last_appointment, next_appointment, 
